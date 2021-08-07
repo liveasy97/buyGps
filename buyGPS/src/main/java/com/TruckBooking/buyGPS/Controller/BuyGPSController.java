@@ -34,6 +34,7 @@ public class BuyGPSController
 	{
 		log.info("post controller started");
 		return new ResponseEntity<>(buygpsservice.addBuyGPS(buygpsrequest), HttpStatus.CREATED);
+		
 	}
 	
 	@GetMapping("/buygps/{gpsId}")
