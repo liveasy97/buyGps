@@ -26,7 +26,10 @@ jobs:
       run: mvn -B package --file pom.xml
     - run: cd ~/actions-runner/deploy/buyGps/buyGps/buyGps
     - run: sudo docker container stop buyGps-container||true
+    - run: sudo docker container stop postgres-container||true
     - run: sudo docker container rm buyGps-container ||true
     - run: sudo docker image rm gps||true
     - run: sudo docker build -t gps .
-    - run: sudo docker run --name buyGps-container -p 8181:8181 -f gps | echo "success"
+    - run: sudo docker container start postgres-container||sudo docker run --name postgres-container -e POSTGRES_PASSWORD=postgres -d postgres:alpine  
+    - run: sudo docker run --name buyGps-container -p 8181:8181  --line postgres-container:postgres gps | echo "success"
+    
