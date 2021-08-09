@@ -8,7 +8,7 @@ on:
     branches: [ dev ]
 defaults:
   run:
-   working-directory: ./buyGps
+   working-directory: ./buyGPS
 
 jobs:
   build:
