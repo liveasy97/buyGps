@@ -12,7 +12,8 @@ import com.TruckBooking.buyGPS.Constants.CommonConstants;
 import com.TruckBooking.buyGPS.Dao.BuyGPSDao;
 import com.TruckBooking.buyGPS.Entity.BuyGPS;
 import com.TruckBooking.buyGPS.Exception.EntityNotFoundException;
-import com.TruckBooking.buyGPS.Model.BuyGPSRequest;
+import com.TruckBooking.buyGPS.Model.BuyGPSPostRequest;
+import com.TruckBooking.buyGPS.Model.BuyGPSPutRequest;
 import com.TruckBooking.buyGPS.Response.CreateBuyGPSResponse;
 import com.TruckBooking.buyGPS.Response.DeleteBuyGPSResponse;
 import com.TruckBooking.buyGPS.Response.UpdateBuyGPSResponse;
@@ -26,7 +27,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 	private BuyGPSDao buygpsdao;
 
 	@Override
-	public CreateBuyGPSResponse addBuyGPS(BuyGPSRequest buygpsrequest) 
+	public CreateBuyGPSResponse addBuyGPS(BuyGPSPostRequest buygpsrequest) 
 	{
 	
 		log.info("add BuyGPS service has started");
@@ -151,7 +152,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 	}
 
 	@Override
-	public UpdateBuyGPSResponse updateBuyGPS(String gpsId, BuyGPSRequest buygpsrequest) 
+	public UpdateBuyGPSResponse updateBuyGPS(String gpsId, BuyGPSPutRequest buygpsrequest) 
 	{
 		log.info("update BuyGps has started");
 		

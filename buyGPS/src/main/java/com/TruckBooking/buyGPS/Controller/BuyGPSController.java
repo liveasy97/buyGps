@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.TruckBooking.buyGPS.Entity.BuyGPS;
-import com.TruckBooking.buyGPS.Model.BuyGPSRequest;
+import com.TruckBooking.buyGPS.Model.BuyGPSPostRequest;
+import com.TruckBooking.buyGPS.Model.BuyGPSPutRequest;
 import com.TruckBooking.buyGPS.Service.BuyGPSServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ public class BuyGPSController
 	private BuyGPSServiceImpl buygpsservice;
 	
 	@PostMapping("/buygps")
-	public ResponseEntity<Object> addBuyGPS(@Valid @RequestBody BuyGPSRequest buygpsrequest)
+	public ResponseEntity<Object> addBuyGPS(@Valid @RequestBody BuyGPSPostRequest buygpsrequest)
 	{
 		log.info("post controller started");
 		return new ResponseEntity<>(buygpsservice.addBuyGPS(buygpsrequest), HttpStatus.CREATED);
@@ -55,7 +56,7 @@ public class BuyGPSController
 	}
 	
 	@PutMapping("/buygps/{gpsId}")
-	public ResponseEntity<Object> updateBuyGPS(@PathVariable String gpsId, @RequestBody BuyGPSRequest buygpsrequest)
+	public ResponseEntity<Object> updateBuyGPS(@PathVariable String gpsId, @RequestBody BuyGPSPutRequest buygpsrequest)
 	{
 		log.info("Put Controller Started");
 		return new ResponseEntity<>(buygpsservice.updateBuyGPS(gpsId, buygpsrequest), HttpStatus.OK);

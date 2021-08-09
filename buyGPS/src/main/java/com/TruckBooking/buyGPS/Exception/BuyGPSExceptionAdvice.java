@@ -1,7 +1,5 @@
 package com.TruckBooking.buyGPS.Exception;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,11 +14,15 @@ public class BuyGPSExceptionAdvice extends ResponseEntityExceptionHandler
      @ExceptionHandler (EntityNotFoundException.class)
      public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex)
      {
-    	 ErrorResponse errorResponse = new ErrorResponse();
-    	 errorResponse.setErrorCode(HttpStatus.NOT_FOUND.value());
-    	 errorResponse.setErrorMessage(ex.getMessage());
-    	 return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    	 ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND);
+    	 errorResponse.setMessage(ex.getMessage());
+    	 return  buildResponseEntity(errorResponse);
      }
+
+	private ResponseEntity<Object> buildResponseEntity(ErrorResponse errorResponse) {
+		// TODO Auto-generated method stub
+		return new ResponseEntity<> (errorResponse, errorResponse.getStatus());
+	}
 
 	
 	
