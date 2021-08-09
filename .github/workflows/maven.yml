@@ -5,7 +5,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ main,dev ]
+    branches: [ dev ]
 defaults:
   run:
    working-directory: ./buyGps
