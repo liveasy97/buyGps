@@ -16,7 +16,7 @@ public interface BuyGPSService
 	public BuyGPS getBuyGPS (String gpsId);
 	
 	public List<BuyGPS> getBuyGPS (String truckId, String transporterId, String purchaseDate, 
-								   boolean installedStatus);
+								   Boolean installedStatus);
 	
 	public UpdateBuyGPSResponse updateBuyGPS (String gpsId, BuyGPSPutRequest buygpsrequest);
 	

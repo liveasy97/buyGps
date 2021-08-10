@@ -2,6 +2,7 @@ package com.TruckBooking.buyGPS.Entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -39,7 +40,9 @@ public class BuyGPS
 	@CreatedDate
     private String purchaseDate;
 	
-    private Boolean installedStatus;
+	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean installedStatus;
+    
     private String imei;
     
     @CreationTimestamp

@@ -59,7 +59,10 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		response.setAddress(temp);
 		
 		buygps.setInstalledStatus(false);
+		response.setInstalledStatus(false);
+		
 		buygps.setImei(null);
+		response.setImei(null);
 		
 		buygpsdao.save(buygps);
 		log.info("Buy gps information has been added");
@@ -84,7 +87,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 	}
 
 	@Override
-	public List<BuyGPS> getBuyGPS(String truckId, String transporterId, String purchaseDate, boolean installedStatus) {
+	public List<BuyGPS> getBuyGPS(String truckId, String transporterId, String purchaseDate, Boolean installedStatus) {
 		
 		log.info("get GPS with params has started");
 		
@@ -127,7 +130,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 			}
 		}
 		
-		if(installedStatus)
+		if(installedStatus != null)
 		{
 			try
 			{
@@ -196,7 +199,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		response.setDuration(buygps.getDuration());
 		response.setAddress(buygps.getAddress());
 		response.setPurchaseDate(buygps.getPurchaseDate());
-		response.setInstalledStatus(buygps.getInstalledStatus());
+		response.setInstalledStatus(buygps.isInstalledStatus());
 		response.setImei(buygps.getImei());
 		response.setTimestamp(buygps.getTimestamp());
 		
