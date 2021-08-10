@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.TruckBooking.buyGPS.Constants.CommonConstants;
 import com.TruckBooking.buyGPS.Dao.BuyGPSDao;
 import com.TruckBooking.buyGPS.Entity.BuyGPS;
+import com.TruckBooking.buyGPS.Exception.BusinessException;
 import com.TruckBooking.buyGPS.Exception.EntityNotFoundException;
 import com.TruckBooking.buyGPS.Model.BuyGPSPostRequest;
 import com.TruckBooking.buyGPS.Model.BuyGPSPutRequest;
@@ -169,12 +170,11 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		}
 		if(buygpsrequest.getRate()!=0)
 		{
-			buygps.setRate(buygpsrequest.getRate());
-		}
-	
-		if(buygpsrequest.getDuration()!=null)
-		{
+			if(buygpsrequest.getDuration() == null)
+			
+				throw new BusinessException("Duration cannot be null when Rate is provided");
 			buygps.setDuration(buygpsrequest.getDuration());
+			buygps.setRate(buygpsrequest.getRate());
 		}
 		if(buygpsrequest.getAddress()!=null)
 		{
