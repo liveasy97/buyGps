@@ -1,36 +1,42 @@
 package com.TruckBooking.buyGPS.Exception;
 
+import org.springframework.http.HttpStatus;
+
+import lombok.Data;
+
+@Data
 public class ErrorResponse 
 {
 
-	private String errorMessage;
-	private int errorCode;
+	private HttpStatus status;
+	private String message;
+	private String debugMessage;
 	
-	public ErrorResponse()
+	public ErrorResponse(HttpStatus status) 
 	{
-		
-	}
-
-	public ErrorResponse(String errorMessage, int errorCode) {
 		super();
-		this.errorMessage = errorMessage;
-		this.errorCode = errorCode;
+		this.status = status;
 	}
 
-	public String getErrorMessage() {
-		return errorMessage;
+	public ErrorResponse(HttpStatus status, String message, Throwable ex) 
+	{
+		super();
+		this.status = status;
+		this.message = message;
+		this.debugMessage=ex.getLocalizedMessage();
+	}
+	
+	public ErrorResponse(HttpStatus status, Throwable ex) 
+	{
+		super();
+		this.status = status;
+	    this.message="unexpected error";
+	    this.debugMessage=ex.getLocalizedMessage();
 	}
 
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
-
-	public int getErrorCode() {
-		return errorCode;
-	}
-
-	public void setErrorCode(int errorCode) {
-		this.errorCode = errorCode;
-	}
+	
+	
+	
+	
 	
 }

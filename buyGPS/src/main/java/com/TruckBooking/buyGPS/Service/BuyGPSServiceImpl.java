@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.TruckBooking.buyGPS.Constants.CommonConstants;
 import com.TruckBooking.buyGPS.Dao.BuyGPSDao;
 import com.TruckBooking.buyGPS.Entity.BuyGPS;
+import com.TruckBooking.buyGPS.Exception.BusinessException;
 import com.TruckBooking.buyGPS.Exception.EntityNotFoundException;
-import com.TruckBooking.buyGPS.Model.BuyGPSRequest;
+import com.TruckBooking.buyGPS.Model.BuyGPSPostRequest;
+import com.TruckBooking.buyGPS.Model.BuyGPSPutRequest;
 import com.TruckBooking.buyGPS.Response.CreateBuyGPSResponse;
 import com.TruckBooking.buyGPS.Response.DeleteBuyGPSResponse;
 import com.TruckBooking.buyGPS.Response.UpdateBuyGPSResponse;
@@ -26,7 +28,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 	private BuyGPSDao buygpsdao;
 
 	@Override
-	public CreateBuyGPSResponse addBuyGPS(BuyGPSRequest buygpsrequest) 
+	public CreateBuyGPSResponse addBuyGPS(BuyGPSPostRequest buygpsrequest) 
 	{
 	
 		log.info("add BuyGPS service has started");
@@ -58,7 +60,10 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		response.setAddress(temp);
 		
 		buygps.setInstalledStatus(false);
+		response.setInstalledStatus(false);
+		
 		buygps.setImei(null);
+		response.setImei(null);
 		
 		buygpsdao.save(buygps);
 		log.info("Buy gps information has been added");
@@ -83,7 +88,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 	}
 
 	@Override
-	public List<BuyGPS> getBuyGPS(String truckId, String transporterId, String purchaseDate, boolean installedStatus) {
+	public List<BuyGPS> getBuyGPS(String truckId, String transporterId, String purchaseDate, Boolean installedStatus) {
 		
 		log.info("get GPS with params has started");
 		
@@ -126,7 +131,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 			}
 		}
 		
-		if(installedStatus)
+		if(installedStatus != null)
 		{
 			try
 			{
@@ -151,7 +156,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 	}
 
 	@Override
-	public UpdateBuyGPSResponse updateBuyGPS(String gpsId, BuyGPSRequest buygpsrequest) 
+	public UpdateBuyGPSResponse updateBuyGPS(String gpsId, BuyGPSPutRequest buygpsrequest) 
 	{
 		log.info("update BuyGps has started");
 		
@@ -165,12 +170,11 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		}
 		if(buygpsrequest.getRate()!=0)
 		{
-			buygps.setRate(buygpsrequest.getRate());
-		}
-	
-		if(buygpsrequest.getDuration()!=null)
-		{
+			if(buygpsrequest.getDuration() == null)
+			
+				throw new BusinessException("Duration cannot be null when Rate is provided");
 			buygps.setDuration(buygpsrequest.getDuration());
+			buygps.setRate(buygpsrequest.getRate());
 		}
 		if(buygpsrequest.getAddress()!=null)
 		{
@@ -195,7 +199,7 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		response.setDuration(buygps.getDuration());
 		response.setAddress(buygps.getAddress());
 		response.setPurchaseDate(buygps.getPurchaseDate());
-		response.setInstalledStatus(buygps.getInstalledStatus());
+		response.setInstalledStatus(buygps.isInstalledStatus());
 		response.setImei(buygps.getImei());
 		response.setTimestamp(buygps.getTimestamp());
 		

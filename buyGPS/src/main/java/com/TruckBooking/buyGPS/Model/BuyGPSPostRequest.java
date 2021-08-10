@@ -1,17 +1,14 @@
 package com.TruckBooking.buyGPS.Model;
 
-import java.security.Timestamp;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import lombok.Data;
 
 @Data
-public class BuyGPSRequest 
+public class BuyGPSPostRequest 
 {
 
 	@NotBlank(message="transporterId cannot be empty")
@@ -32,9 +29,8 @@ public class BuyGPSRequest
 	@CreatedDate
     private String purchaseDate;
 	
-    private Boolean installedStatus;
+   
     private String imei;
     
-    @CreationTimestamp
-    public Timestamp timestamp;
+   
 }
