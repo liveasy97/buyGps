@@ -30,7 +30,7 @@ public class BuyGPSController
 	@Autowired
 	private BuyGPSServiceImpl buygpsservice;
 	
-	@PostMapping("/buygps")
+	@PostMapping("/gps")
 	public ResponseEntity<Object> addBuyGPS(@Valid @RequestBody BuyGPSPostRequest buygpsrequest)
 	{
 		log.info("post controller started");
@@ -38,14 +38,14 @@ public class BuyGPSController
 		
 	}
 	
-	@GetMapping("/buygps/{gpsId}")
+	@GetMapping("/gps/{gpsId}")
 	public ResponseEntity<Object> getBuyGPS(@PathVariable String gpsId)
 	{
 		log.info("get by gpsId controller started");
 		return new ResponseEntity<>(buygpsservice.getBuyGPS(gpsId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/buygps")
+	@GetMapping("/gps")
 	public ResponseEntity<List<BuyGPS>> getBuyGPS (@RequestParam (name="truckId", required=false) String truckId,
 								   @RequestParam (name="transporterId", required=false) String transporterId,
 								   @RequestParam (name="purchaseDate", required=false) String purchaseDate,
@@ -55,14 +55,14 @@ public class BuyGPSController
 		return new ResponseEntity<>(buygpsservice.getBuyGPS(truckId, transporterId, purchaseDate, installedStatus), HttpStatus.OK);
 	}
 	
-	@PutMapping("/buygps/{gpsId}")
+	@PutMapping("/gps/{gpsId}")
 	public ResponseEntity<Object> updateBuyGPS(@PathVariable String gpsId, @RequestBody BuyGPSPutRequest buygpsrequest)
 	{
 		log.info("Put Controller Started");
 		return new ResponseEntity<>(buygpsservice.updateBuyGPS(gpsId, buygpsrequest), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/buygps/{gpsId}")
+	@DeleteMapping("/gps/{gpsId}")
 	public ResponseEntity<Object> deleteBuyGPS (@PathVariable String gpsId)
 	{
 		log.info("delete controller has started");
