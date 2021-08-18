@@ -1,6 +1,8 @@
 package com.TruckBooking.buyGPS.Service;
 
-
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -65,10 +67,12 @@ public class BuyGPSServiceImpl implements BuyGPSService
 		buygps.setImei(null);
 		response.setImei(null);
 		
+		buygps.setPurchaseDate(ZonedDateTime.now(ZoneId.of("Asia/Kolkata"))
+				.format(DateTimeFormatter.ofPattern("E, MMM dd yyyy")));
+		response.setPurchaseDate(buygps.getPurchaseDate());
 		buygpsdao.save(buygps);
 		log.info("Buy gps information has been added");
 		response.setTimestamp(buygps.getTimestamp());
-		response.setPurchaseDate(buygps.getPurchaseDate());
 		
 		return response;
 	}

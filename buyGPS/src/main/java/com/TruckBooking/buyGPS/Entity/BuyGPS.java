@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import lombok.Data;
 
@@ -37,7 +36,7 @@ public class BuyGPS
 	@NotBlank(message="address cannot be empty")
     private String address;
 	
-	@CreatedDate
+	//@CreationTimestamp
     private String purchaseDate;
 	
 	@Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
@@ -47,6 +46,7 @@ public class BuyGPS
     
     @CreationTimestamp
     public Timestamp timestamp;
+    
     
 	
 }

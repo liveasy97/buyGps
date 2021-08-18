@@ -26,8 +26,7 @@ public class BuyGPSPostRequest
 	@NotBlank(message="address cannot be empty")
     private String address;
 	
-	@CreatedDate
-    private String purchaseDate;
+    //private String purchaseDate;
 	
    
     private String imei;
